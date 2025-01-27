@@ -119,5 +119,132 @@
         </div>
       </div>
     </div>
+
+
+    
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jwt-decode@3.1.2/build/jwt-decode.min.js"></script>
+    <script>
+      $(document).ready(function () {
+        $("#navbar-container").load("navbars/navbar.html", function () {
+          // Set the text color of navbar items to white
+          $("#navbarNav .nav-link").css("color", "#6c757d");
+          $(".navbar-brand").css("color", "white");
+        });
+        $("#StudentRegisterForm").submit(function (event) {
+          event.preventDefault();
+
+          // Get form elements
+          const rollNo = $("#rollNo");
+          const studentName = $("#studentName"); 
+          const email = $("#email");
+          const password = $("#password");
+          const courseName = $("#courseName").val(function(){
+            return this.value.toUpperCase();
+          });
+         console.log("course Name",courseName.val());
+          console.log(rollNo);
+          console.log(studentName);
+
+          // Initialize validation flag
+          let valid = true;
+
+          // Roll No validation
+          if (rollNo.val().length < 4) {
+            rollNo.addClass("is-invalid");
+            valid = false;
+          } else {
+            rollNo.removeClass("is-invalid").addClass("is-valid");
+          }
+
+          // Name validation
+          if (studentName.val()===" " || !validateStudentName(studentName.val())) {
+            studentName.addClass("is-invalid");
+            valid = false;
+          } else {
+            studentName.removeClass("is-invalid").addClass("is-valid");
+          }
+
+          // Email validation
+          if (!validateEmail(email.val())) {
+            email.addClass("is-invalid");
+            valid = false;
+          } else {
+            email.removeClass("is-invalid").addClass("is-valid");
+          }
+
+          // Password validation
+          if (password.val().length < 1) {
+            console.log("Inside password validation");
+            password.addClass("is-invalid");
+            valid = false;
+          } else {
+            password.removeClass("is-invalid").addClass("is-valid");
+          }
+
+          if (courseName.val()===" ") {
+            courseName.addClass("is-invalid");
+            valid = false;
+          } else {
+            courseName.removeClass("is-invalid").addClass("is-valid");
+          }
+
+          if (valid) {
+            // If form is valid, send data to the backend
+            fetch("http://127.0.0.1:5000/student/register", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                rollNo: rollNo.val(),
+                studentName: studentName.val(),
+                email: email.val(),
+                password: password.val(),
+                courseName: courseName.val(),
+              }),
+            })
+              .then((response) => response.json())
+              .then((data) => {
+                console.log("Response from server for login", data);
+                if (data.error) {
+                  // Check for specific error messages and display appropriate toastr messages
+                  if (data.error === "Invalid email") {
+                    toastr.error("Invalid email!");
+                  } else if (data.error === "Invalid password") {
+                    toastr.error("Invalid password!");
+                  } else {
+                    toastr.error(data.error);
+                  }
+                }else{
+                    window.location.href = "student-login.html";
+                }
+              })
+              .catch((error) => {
+                console.error("Error:", error);
+                toastr.error("Registration failed!");
+              });
+          }
+        });
+
+        function validateEmail(email) {
+          // email validation regex
+          console.log("Inside email validate");
+          const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+          return re.test(email);
+        }
+
+        function validateStudentName(studentName){
+          console.log("Inside student validate");
+          const studreg=/^[A-Za-z\s]+$/;
+          return studreg.test(studentName);
+
+
+        }
+      });
+    </script>
+
+
   </body>
 </html>
