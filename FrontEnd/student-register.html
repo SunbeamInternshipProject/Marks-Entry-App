@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login Form</title>
+    <link
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css"
+    />
+    <style>
+      .login-container {
+        max-width: 400px;
+        margin: 50px auto;
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="navbar-container"></div>
+    <div class="container">
+      <div class="login-container card shadow">
+        <div class="card-body">
+          <h3 class="card-title text-center">Student Registration</h3>
+          <form id="StudentRegisterForm">
+            <div class="form-group">
+                <label for="rollNo">Roll No.</label>
+                <input
+                  type="number"
+                  class="form-control"
+                  id="rollNo"
+                  placeholder="Enter Roll No"
+                  required
+                />
+                <div class="invalid-feedback">
+                  Roll No. must be 4 digit long.
+                </div>
+                <div class="valid-feedback">
+                  Roll No. is valid.
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="studentName">Student Name</label>
+                <input
+                  type="text"
+                  
+                  class="form-control"
+                  id="studentName"
+                  placeholder="Enter Name"
+                  required
+                />
+                <div class="invalid-feedback">
+                  Please enter a valid Name.
+                </div>
+                <div class="valid-feedback">
+                  Name is valid.
+                </div>
+              </div>
+
+            <div class="form-group">
+              <label for="email">Email address</label>
+              <input
+                type="email"
+                class="form-control"
+                id="email"
+                placeholder="Enter email"
+              />
+              <div class="invalid-feedback">
+                Please enter a valid email address.
+              </div>
+              <div class="valid-feedback">
+                email is valid.
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="password">Password</label>
+              <input
+                type="password"
+                class="form-control"
+                id="password"
+                placeholder="Password"
+                required
+              />
+              <div class="invalid-feedback">
+                Password must be at least 6 characters long.
+              </div>
+              <div class="valid-feedback">
+                Name is valid.
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="courseName">Course Name</label>
+              <input
+                type="text"
+                class="form-control"
+                id="courseName"
+                placeholder="Enter Course Name"
+                required
+              />
+              <div class="invalid-feedback">
+                Please enter a valid Name.
+              </div>
+              <div class="valid-feedback">
+                Course Name is valid.
+              </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-block mb-2">
+                Submit
+              </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
