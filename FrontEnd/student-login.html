@@ -133,31 +133,10 @@
 
                   // Store the token in local storage
                   localStorage.setItem("token", data.data.token);
+                  window.location.href = "student/student-home.html";
 
-                  // Decode the token to get the user role
-                  const decodedToken = jwt_decode(data.data.token);
-                  const role = decodedToken.role;
-
-                  console.log("role-", role);
-                  debugger;
-                  // Redirect based on the role
-                  switch (role) {
-                    case "students":
-                      window.location.href = "student/student-home.html";
-                      break;
-                    case "admin":
-                      window.location.href = "admin/admin-home.html";
-                      break;
-                    case "coordinator":
-                      window.location.href = "coco/coco-home.html";
-                      break;
-                    case "staff":
-                      window.location.href = "staff/staff-home.html";
-                      break;
-                    default:
-                      window.location.href = "home.html";
-                      break;
-                  }
+                 
+    
                 }
               })
               .catch((error) => {
