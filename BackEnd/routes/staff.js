@@ -6,6 +6,31 @@ const config = require("../config");
 const crypto = require("crypto-js");
 const jwt = require("jsonwebtoken");
 
+router.post("/register", (request, response) => {
+  console.log("*: INside staff register");
+  console.log(": ", request.body);
+  const { empNo, empName, email, password, course_name } = request.body;
+  console.log("***: ", empNo, empName, email, password, course_name);
+  const role="staff";
+
+  
+      const statement = `INSERT INTO staff 
+    (employee_number, staff_name, email, password, role, course_name )
+    VALUES (?, ?, ?, ?, ?, ?)`;
+
+      // encrypt the password
+      const encryptedPassword = String(crypto.SHA256(password));
+
+      db.execute(
+        statement,
+        [empNo, empName, email, encryptedPassword, role, course_name],
+        (error, result) => {
+          response.send(utils.createResponse(error, result));
+        }
+      );
+    }
+  
+);
 
 // LOGIN API
 router.post("/Login", (request, response) => {
@@ -39,6 +64,7 @@ router.post("/Login", (request, response) => {
         employee_number: staff["employee_number"],
         staff_name: staff["staff_name"],
         role: staff["role"],
+        course_name:staff["course_name"]
         };
 
         console.log("Check Student payload ", payload);
