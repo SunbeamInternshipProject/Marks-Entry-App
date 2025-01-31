@@ -25,7 +25,8 @@ app.use((request, response, next) => {
     const skipUrls = [
         "/student/login",
         "/student/register",
-        "/staff/Login"
+        "/staff/Login",
+        "/staff/register"
       ];
 
       if (skipUrls.includes(request.url)) {
